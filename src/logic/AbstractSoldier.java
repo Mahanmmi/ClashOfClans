@@ -27,9 +27,9 @@ abstract class AbstractSoldier extends AbstractUnit {
             Coordinate targetCoordinate = weapon.canHit(chart, isBlue, this.coordinate, direction).get(0);
             if (targetCoordinate != null) {
                 AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
-                if (this instanceof Swordman) {
+                if (this instanceof SwordMan) {
                     return new AttackAction(this, target, target.getCoordinate());
-                } else if (this instanceof Spearman) {
+                } else if (this instanceof SpearMan) {
                     Coordinate coordinate;
                     if (this.getCoordinate().getY() + direction == chart.length || this.getCoordinate().getY() + direction == -1) {
                         direction = -direction;

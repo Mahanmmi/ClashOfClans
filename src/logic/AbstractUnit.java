@@ -25,7 +25,7 @@ abstract class AbstractUnit {
         }
     }
 
-    abstract void act();
+    abstract Action act();
 
     boolean isBlue() {
         return isBlue;

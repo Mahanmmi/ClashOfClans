@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 import static logic.Main.chart;
 
 abstract class AbstractSoldier extends AbstractUnit {
@@ -43,7 +45,8 @@ abstract class AbstractSoldier extends AbstractUnit {
     }
 
     @Override
-    Action act() {
+    ArrayList<Action> act() {
+        ArrayList<Action> arr = new ArrayList<>();
         if (weapon.canHit(chart, isBlue, coordinate, direction) == null) {
             int x = coordinate.getX();
             int y = coordinate.getY();
@@ -51,18 +54,22 @@ abstract class AbstractSoldier extends AbstractUnit {
                 direction = -direction;
             }
             if (chart[x][y + direction].getUnit() == null) {
-                return move(new Coordinate(x, y + direction));
+                arr.add(move(new Coordinate(x, y + direction)));
+                return arr;
             }
 
             for (int i = -1; i <= 1; i += 2) {
                 if ((x + i < 0) || (x + i) >= chart.length || chart[x + i][y + direction].getUnit() != null) {
                     continue;
                 }
-                return move(new Coordinate(x + i, y));
+                arr.add(move(new Coordinate(x + i, y)));
+                return arr;
             }
-            return move(new Coordinate(x, y));
+            arr.add(move(new Coordinate(x, y)));
+            return arr;
         }
-        return attack(chart);
+        arr.add(attack(chart));
+        return arr;
     }
 
     void takeDamage(int damage) {

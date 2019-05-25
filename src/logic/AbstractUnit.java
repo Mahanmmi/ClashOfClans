@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 abstract class AbstractUnit {
     final Coordinate coordinate;
     final int id;
@@ -25,7 +27,7 @@ abstract class AbstractUnit {
         }
     }
 
-    abstract Action act();
+    abstract ArrayList<Action> act();
 
     boolean isBlue() {
         return isBlue;

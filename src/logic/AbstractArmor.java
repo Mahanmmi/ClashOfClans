@@ -13,7 +13,7 @@ abstract class AbstractArmor {
         return weight;
     }
 
-    int getDamage(int damage){
+    int takeDamage(int damage){
         return (damage*(100-resistance))/100;
     }
 }

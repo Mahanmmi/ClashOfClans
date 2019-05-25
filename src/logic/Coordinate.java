@@ -17,9 +17,13 @@ class Coordinate {
         return y;
     }
 
-    public void move(int deltaX, int deltaY) {
-        x += deltaX;
-        y += deltaY;
+    public void moveTo(int x, int y) {
+        moveTo(new Coordinate(x,y));
+    }
+
+    public void moveTo(Coordinate coordinate) {
+        x = coordinate.getX();
+        y = coordinate.getY();
     }
 
     @Override

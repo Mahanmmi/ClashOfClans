@@ -15,7 +15,8 @@ public class Tower extends AbstractUnit {
             ArrayList<Coordinate> targetsCoordinates = weapon.canHit(chart, isBlue, this.coordinate, direction);
             for (Coordinate targetCoordinate : targetsCoordinates) {
                 AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
-                attackActions.add(new AttackAction(this, target, this.getCoordinate()));
+                if (target != null && target.isBlue() != isBlue())
+                    attackActions.add(new AttackAction(this, target, this.getCoordinate()));
             }
             return attackActions;
         }

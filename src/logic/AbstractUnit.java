@@ -3,16 +3,20 @@ package logic;
 import java.util.ArrayList;
 
 abstract class AbstractUnit {
+    int hitpoint;
     final Coordinate coordinate;
-    final int id;
-    final boolean isBlue;
+    private final int id;
+    private final boolean isBlue;
+    private final String type;
     int direction; // 1 for upward   -1 for downward
     int attackDelay;
     int currentAttackDelay = 0;
     AbstractArmor armor;
     AbstractWeapon weapon;
 
-    public AbstractUnit(Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon) {
+    public AbstractUnit(String type,int hitpoint,Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon) {
+        this.type = type;
+        this.hitpoint = hitpoint;
         this.coordinate = coordinate;
         this.id = id;
         this.isBlue = isBlue;
@@ -25,6 +29,18 @@ abstract class AbstractUnit {
         } else {
             direction = -1;
         }
+    }
+
+    String getType() {
+        return type;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getHitpoint() {
+        return hitpoint;
     }
 
     abstract ArrayList<Action> act();
@@ -48,4 +64,6 @@ abstract class AbstractUnit {
     public Coordinate getCoordinate() {
         return coordinate;
     }
+
+
 }

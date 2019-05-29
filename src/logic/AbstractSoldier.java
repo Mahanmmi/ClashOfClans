@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import static logic.Main.chart;
 
 abstract class AbstractSoldier extends AbstractUnit {
-    int hitpoint;
-    int movementDelay;
-    int currentMovementDelay = 0;
+    private int movementDelay;
+    private int currentMovementDelay = 0;
 
-    public AbstractSoldier(Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
+    public AbstractSoldier(String type,Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
                            int hitpoint, int movementDelay) {
-        super(coordinate, id, isBlue, attackDelay, armor, weapon);
-        this.hitpoint = hitpoint;
+        super(type,hitpoint,coordinate, id, isBlue, attackDelay, armor, weapon);
         this.movementDelay = movementDelay + armor.getWeight();
         this.attackDelay += weapon.getRefreshTime();
     }
@@ -26,18 +24,22 @@ abstract class AbstractSoldier extends AbstractUnit {
 
     AttackAction attack(ChartCell[][] chart) {
         if (isAlive() && currentAttackDelay == 0) {
-            Coordinate targetCoordinate = weapon.canHit(chart, isBlue, this.coordinate, direction).get(0);
-            if (targetCoordinate != null) {
-                AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
-                if (this instanceof SwordMan) {
-                    return new AttackAction(this, target, target.getCoordinate());
-                } else if (this instanceof SpearMan) {
-                    Coordinate coordinate;
-                    if (this.getCoordinate().getY() + direction == chart.length || this.getCoordinate().getY() + direction == -1) {
-                        direction = -direction;
+
+            ArrayList<Coordinate> targetCoordinates = weapon.canHit(chart, isBlue(), this.coordinate, direction);
+            if(targetCoordinates.size()!=0) {
+                Coordinate targetCoordinate = targetCoordinates.get(0);
+                if (targetCoordinate != null) {
+                    AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
+                    if (this instanceof SwordMan) {
+                        return new AttackAction(this, target, target.getCoordinate());
+                    } else if (this instanceof SpearMan) {
+                        Coordinate coordinate;
+                        if (this.getCoordinate().getY() + direction == chart.length || this.getCoordinate().getY() + direction == -1) {
+                            direction = -direction;
+                        }
+                        coordinate = new Coordinate(this.getCoordinate().getX(), this.getCoordinate().getY() + direction);
+                        return new AttackAction(this, target, coordinate);
                     }
-                    coordinate = new Coordinate(this.getCoordinate().getX(), this.getCoordinate().getY() + direction);
-                    return new AttackAction(this, target, coordinate);
                 }
             }
         }
@@ -47,7 +49,7 @@ abstract class AbstractSoldier extends AbstractUnit {
     @Override
     ArrayList<Action> act() {
         ArrayList<Action> arr = new ArrayList<>();
-        if (weapon.canHit(chart, isBlue, coordinate, direction) == null) {
+        if (weapon.canHit(chart, isBlue(), coordinate, direction) == null) {
             int x = coordinate.getX();
             int y = coordinate.getY();
             if (y + direction == chart.length || y + direction == -1) {
@@ -96,5 +98,12 @@ abstract class AbstractSoldier extends AbstractUnit {
             hitpoint = 0;
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        return getId() +
+                ", " + hitpoint +
+                ", " + coordinate;
     }
 }

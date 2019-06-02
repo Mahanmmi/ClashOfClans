@@ -14,6 +14,7 @@ public class Main {
             for (int j = 0; j < chart[i].length; j++) {
                 ChartCell cell = chart[i][j];
                 if (cell.getUnit() != null) {
+//                    System.out.println("!!!");
                     turnActions.addAll(cell.getUnit().act());
                 }
             }
@@ -74,15 +75,15 @@ public class Main {
             Coordinate coordinate = new Coordinate(Integer.parseInt(unitData[2]), Integer.parseInt(unitData[3]));
             switch (type) {
                 case "Tower": {
-                    chart[coordinate.getY()][coordinate.getX()].setUnit(new Tower(coordinate, id, isBlue));
+                    chart[coordinate.getX()][coordinate.getY()].setUnit(new Tower(coordinate, id, isBlue));
                     break;
                 }
                 case "SwordMan": {
-                    chart[coordinate.getY()][coordinate.getX()].setUnit(new SwordMan(coordinate, id, isBlue));
+                    chart[coordinate.getX()][coordinate.getY()].setUnit(new SwordMan(coordinate, id, isBlue));
                     break;
                 }
                 case "SpearMan": {
-                    chart[coordinate.getY()][coordinate.getX()].setUnit(new SpearMan(coordinate, id, isBlue));
+                    chart[coordinate.getX()][coordinate.getY()].setUnit(new SpearMan(coordinate, id, isBlue));
                     break;
                 }
             }
@@ -101,9 +102,20 @@ public class Main {
         int redCount = scanner.nextInt();
         initChartUnits(blueCount, true);
         initChartUnits(redCount, false);
+
+        printChart();
+
+
+        scanner.nextLine();
+
         while (true){
-            scanner.next();
-            tick();
+            String in = scanner.nextLine();
+            if(in.startsWith("tick ")){
+                int t = Integer.parseInt(in.substring(5));
+                for (int i = 0; i < t; i++) {
+                    tick();
+                }
+            }
             printChart();
         }
     }

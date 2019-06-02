@@ -8,9 +8,9 @@ abstract class AbstractSoldier extends AbstractUnit {
     private int movementDelay;
     private int currentMovementDelay = 0;
 
-    public AbstractSoldier(String type,Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
+    public AbstractSoldier(String type, Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
                            int hitpoint, int movementDelay) {
-        super(type,hitpoint,coordinate, id, isBlue, attackDelay, armor, weapon);
+        super(type, hitpoint, coordinate, id, isBlue, attackDelay, armor, weapon);
         this.movementDelay = movementDelay + armor.getWeight();
         this.attackDelay += weapon.getRefreshTime();
     }
@@ -24,9 +24,8 @@ abstract class AbstractSoldier extends AbstractUnit {
 
     AttackAction attack(ChartCell[][] chart) {
         if (isAlive() && currentAttackDelay == 0) {
-
             ArrayList<Coordinate> targetCoordinates = weapon.canHit(chart, isBlue(), this.coordinate, direction);
-            if(targetCoordinates.size()!=0) {
+            if (targetCoordinates.size() != 0) {
                 Coordinate targetCoordinate = targetCoordinates.get(0);
                 if (targetCoordinate != null) {
                     AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
@@ -34,10 +33,10 @@ abstract class AbstractSoldier extends AbstractUnit {
                         return new AttackAction(this, target, target.getCoordinate());
                     } else if (this instanceof SpearMan) {
                         Coordinate coordinate;
-                        if (this.getCoordinate().getY() + direction == chart.length || this.getCoordinate().getY() + direction == -1) {
+                        if (this.getCoordinate().getX() + direction == chart.length || this.getCoordinate().getX() + direction == -1) {
                             direction = -direction;
                         }
-                        coordinate = new Coordinate(this.getCoordinate().getX(), this.getCoordinate().getY() + direction);
+                        coordinate = new Coordinate(this.getCoordinate().getX() + direction, this.getCoordinate().getY());
                         return new AttackAction(this, target, coordinate);
                     }
                 }
@@ -49,24 +48,32 @@ abstract class AbstractSoldier extends AbstractUnit {
     @Override
     ArrayList<Action> act() {
         ArrayList<Action> arr = new ArrayList<>();
-        if (weapon.canHit(chart, isBlue(), coordinate, direction) == null) {
+        if (currentMovementDelay != 0) {
+            currentMovementDelay--;
+        }
+        if (getCurrentAttackDelay() != 0) {
+            setCurrentAttackDelay(getCurrentAttackDelay() - 1);
+        }
+        if (weapon.canHit(chart, isBlue(), coordinate, direction).size() == 0) {
             int x = coordinate.getX();
             int y = coordinate.getY();
-            if (y + direction == chart.length || y + direction == -1) {
+            if (x + direction == chart.length || x + direction == -1) {
                 direction = -direction;
             }
-            if (chart[x][y + direction].getUnit() == null) {
-                arr.add(move(new Coordinate(x, y + direction)));
+//            System.out.println("Excuse me WTF1");
+            if (chart[x + direction][y].getUnit() == null) {
+                arr.add(move(new Coordinate(x + direction, y)));
                 return arr;
             }
-
+//            System.out.println("Excuse me WTF2");
             for (int i = -1; i <= 1; i += 2) {
-                if ((x + i < 0) || (x + i) >= chart.length || chart[x + i][y + direction].getUnit() != null) {
+                if ((y + i < 0) || (y + i) >= chart[x].length || chart[x + direction][y + i].getUnit() != null) {
                     continue;
                 }
-                arr.add(move(new Coordinate(x + i, y)));
+                arr.add(move(new Coordinate(x, y + i)));
                 return arr;
             }
+//            System.out.println("Excuse me WTF3");
             arr.add(move(new Coordinate(x, y)));
             return arr;
         }
@@ -98,12 +105,5 @@ abstract class AbstractSoldier extends AbstractUnit {
             hitpoint = 0;
             return false;
         }
-    }
-
-    @Override
-    public String toString() {
-        return getId() +
-                ", " + hitpoint +
-                ", " + coordinate;
     }
 }

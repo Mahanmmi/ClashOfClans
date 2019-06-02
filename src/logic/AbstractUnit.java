@@ -14,7 +14,7 @@ abstract class AbstractUnit {
     AbstractArmor armor;
     AbstractWeapon weapon;
 
-    public AbstractUnit(String type, int hitpoint, Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon) {
+    AbstractUnit(String type, int hitpoint, Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon) {
         this.type = type;
         this.hitpoint = hitpoint;
         this.coordinate = coordinate;
@@ -29,12 +29,8 @@ abstract class AbstractUnit {
         return type;
     }
 
-    public int getId() {
+    int getId() {
         return id;
-    }
-
-    public int getHitpoint() {
-        return hitpoint;
     }
 
     abstract ArrayList<Action> act();
@@ -43,19 +39,19 @@ abstract class AbstractUnit {
         return isBlue;
     }
 
-    public int getAttackDelay() {
+    int getAttackDelay() {
         return attackDelay;
     }
 
-    public AbstractWeapon getWeapon() {
+    AbstractWeapon getWeapon() {
         return weapon;
     }
 
-    public void setCurrentAttackDelay(int currentAttackDelay) {
+    void setCurrentAttackDelay(int currentAttackDelay) {
         this.currentAttackDelay = currentAttackDelay;
     }
 
-    public int getCurrentAttackDelay() {
+    int getCurrentAttackDelay() {
         return currentAttackDelay;
     }
 
@@ -65,10 +61,10 @@ abstract class AbstractUnit {
 
     @Override
     public String toString() {
-        return "Id: "+ getId() +
+        return "Id: " + getId() +
                 ", Type: " + getType() +
                 ", isBlue: " + isBlue() +
                 ", HP: " + hitpoint +
-                ", Coordinate: "  + coordinate;
+                ", Coordinate: " + coordinate;
     }
 }

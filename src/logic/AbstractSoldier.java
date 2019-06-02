@@ -8,10 +8,10 @@ abstract class AbstractSoldier extends AbstractUnit {
     private int movementDelay;
     private int currentMovementDelay = 0;
 
-    public AbstractSoldier(String type, Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
-                           int hitpoint, int movementDelay) {
+    AbstractSoldier(String type, Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
+                    int hitpoint, int movementDelay) {
         super(type, hitpoint, coordinate, id, isBlue, attackDelay, armor, weapon);
-        if(isBlue)
+        if (isBlue)
             direction = 1;
         else
             direction = -1;
@@ -95,11 +95,11 @@ abstract class AbstractSoldier extends AbstractUnit {
         return hitpoint;
     }
 
-    public int getMovementDelay() {
+    int getMovementDelay() {
         return movementDelay;
     }
 
-    public void setCurrentMovementDelay(int currentMovementDelay) {
+    void setCurrentMovementDelay(int currentMovementDelay) {
         this.currentMovementDelay = currentMovementDelay;
     }
 

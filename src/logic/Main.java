@@ -108,15 +108,17 @@ public class Main {
 
         scanner.nextLine();
 
-        while (true){
+        while (true) {
             String in = scanner.nextLine();
-            if(in.startsWith("tick ")){
+            if (in.startsWith("tick ")) {
                 int t = Integer.parseInt(in.substring(5));
                 for (int i = 0; i < t; i++) {
                     tick();
                 }
+                printChart();
+            } else if (in.equalsIgnoreCase("terminate")) {
+                break;
             }
-            printChart();
         }
     }
 }

@@ -1,7 +1,7 @@
 package logic;
 
-public class StoneArmor extends AbstractArmor {
-    public StoneArmor() {
+class StoneArmor extends AbstractArmor {
+    StoneArmor() {
         super(100, Integer.MAX_VALUE);
     }
 }

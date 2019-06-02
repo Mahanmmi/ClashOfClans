@@ -9,19 +9,19 @@ class Coordinate {
         this.y = y;
     }
 
-    public int getX() {
+    int getX() {
         return x;
     }
 
-    public int getY() {
+    int getY() {
         return y;
     }
 
     public void moveTo(int x, int y) {
-        moveTo(new Coordinate(x,y));
+        moveTo(new Coordinate(x, y));
     }
 
-    public void moveTo(Coordinate coordinate) {
+    void moveTo(Coordinate coordinate) {
         x = coordinate.getX();
         y = coordinate.getY();
     }

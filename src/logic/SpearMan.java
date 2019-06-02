@@ -2,8 +2,8 @@ package logic;
 
 import java.util.ArrayList;
 
-public class SpearMan extends AbstractSoldier {
-    public SpearMan(Coordinate coordinate, int id, boolean isBlue) {
+class SpearMan extends AbstractSoldier {
+    SpearMan(Coordinate coordinate, int id, boolean isBlue) {
         super("SpearMan", coordinate, id, isBlue, 0, new ChainArmor(), new Spear(), 3000, 1);
     }
 

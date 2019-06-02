@@ -1,13 +1,12 @@
 package logic;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 abstract class AbstractWeapon {
     private final int damage;
     private final int refreshTime;
 
-    public AbstractWeapon(int damage, int refreshTime) {
+    AbstractWeapon(int damage, int refreshTime) {
         this.damage = damage;
         this.refreshTime = refreshTime;
     }
@@ -27,19 +26,19 @@ abstract class AbstractWeapon {
         targets.sort((Coordinate a, Coordinate b) -> {
             AbstractUnit firstUnit = chart[a.getX()][a.getY()].getUnit();
             AbstractUnit secondUnit = chart[b.getX()][b.getY()].getUnit();
-            if(firstUnit!=null && secondUnit!=null){
-                return Integer.compare(firstUnit.getId(),secondUnit.getId());
+            if (firstUnit != null && secondUnit != null) {
+                return Integer.compare(firstUnit.getId(), secondUnit.getId());
             }
             return 0;
         });
         return targets;
     }
 
-    public int getDamage() {
+    int getDamage() {
         return damage;
     }
 
-    public int getRefreshTime() {
+    int getRefreshTime() {
         return refreshTime;
     }
 }

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import static logic.Main.chart;
 
-public class Tower extends AbstractUnit {
-    public Tower(Coordinate coordinate, int id, boolean isBlue) {
+class Tower extends AbstractUnit {
+    Tower(Coordinate coordinate, int id, boolean isBlue) {
         super("Tower", 10000, coordinate, id, isBlue, 10, new StoneArmor(), new Sling());
     }
 
@@ -16,7 +16,7 @@ public class Tower extends AbstractUnit {
             for (Coordinate targetCoordinate : targetsCoordinates) {
                 AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
                 if (target != null) {
-                    System.out.print(this +" Now can attack: ");
+                    System.out.print(this + " Now can attack: ");
                     System.out.println(target);
                     attackActions.add(new AttackAction(this, target, this.getCoordinate()));
                 }

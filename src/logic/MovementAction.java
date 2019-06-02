@@ -2,11 +2,11 @@ package logic;
 
 import static logic.Main.chart;
 
-public class MovementAction implements Action{
+class MovementAction implements Action {
     private final AbstractSoldier soldier;
     private final Coordinate coordinate;
 
-    public MovementAction(AbstractSoldier soldier, Coordinate coordinate) {
+    MovementAction(AbstractSoldier soldier, Coordinate coordinate) {
         this.soldier = soldier;
         this.coordinate = coordinate;
     }

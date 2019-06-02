@@ -1,5 +1,5 @@
 package logic;
 
-public interface Action {
+interface Action {
     void doAction();
 }

@@ -2,12 +2,12 @@ package logic;
 
 import static logic.Main.chart;
 
-public class AttackAction implements Action {
+class AttackAction implements Action {
     private final AbstractUnit unit;
     private final AbstractSoldier target;
     private final Coordinate coordinate;
 
-    public AttackAction(AbstractUnit unit, AbstractSoldier target, Coordinate coordinate) {
+    AttackAction(AbstractUnit unit, AbstractSoldier target, Coordinate coordinate) {
         this.unit = unit;
         this.target = target;
         this.coordinate = coordinate;

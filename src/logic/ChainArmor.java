@@ -1,7 +1,7 @@
 package logic;
 
-public class ChainArmor extends AbstractArmor {
-    public ChainArmor() {
+class ChainArmor extends AbstractArmor {
+    ChainArmor() {
         super(20, 3);
     }
 }

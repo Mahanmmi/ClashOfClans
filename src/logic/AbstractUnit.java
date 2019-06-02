@@ -23,12 +23,6 @@ abstract class AbstractUnit {
         this.attackDelay = attackDelay;
         this.armor = armor;
         this.weapon = weapon;
-
-        if (isBlue) {
-            direction = 1;
-        } else {
-            direction = -1;
-        }
     }
 
     String getType() {

@@ -20,13 +20,13 @@ public class SpearMan extends AbstractSoldier {
             int n = chart.length;
             for (int i = -1; i <= 1; i++) {
                 for (int j = 1; j <= 2; j++) {
-                    if ((x + i < 0)
-                            || (x + i >= n)
-                            || (y + direction * j < 0)
-                            || (y + direction * j >= n)) {
+                    if ((x + direction * j < 0)
+                            || (x + direction * j >= n)
+                            || (y + i < 0)
+                            || (y + i >= n)) {
                         continue;
                     }
-                    actionableCells.add(new Coordinate(x + i, y + direction * j));
+                    actionableCells.add(new Coordinate(x + direction * j, y + i));
                 }
             }
             return actionableCells;

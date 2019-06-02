@@ -11,6 +11,11 @@ abstract class AbstractSoldier extends AbstractUnit {
     public AbstractSoldier(String type, Coordinate coordinate, int id, boolean isBlue, int attackDelay, AbstractArmor armor, AbstractWeapon weapon,
                            int hitpoint, int movementDelay) {
         super(type, hitpoint, coordinate, id, isBlue, attackDelay, armor, weapon);
+        if(isBlue)
+            direction = 1;
+        else
+            direction = -1;
+
         this.movementDelay = movementDelay + armor.getWeight();
         this.attackDelay += weapon.getRefreshTime();
     }

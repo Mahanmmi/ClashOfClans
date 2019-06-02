@@ -24,7 +24,14 @@ abstract class AbstractWeapon {
                 targets.add(actionableCell);
             }
         }
-        targets.sort(Comparator.comparingInt(Coordinate::getX).thenComparingInt(Coordinate::getY));
+        targets.sort((Coordinate a, Coordinate b) -> {
+            AbstractUnit firstUnit = chart[a.getX()][a.getY()].getUnit();
+            AbstractUnit secondUnit = chart[b.getX()][b.getY()].getUnit();
+            if(firstUnit!=null && secondUnit!=null){
+                return Integer.compare(firstUnit.getId(),secondUnit.getId());
+            }
+            return 0;
+        });
         return targets;
     }
 

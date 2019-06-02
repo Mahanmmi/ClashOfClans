@@ -20,7 +20,7 @@ abstract class AbstractSoldier extends AbstractUnit {
         this.attackDelay += weapon.getRefreshTime();
     }
 
-    MovementAction move(Coordinate target) {
+    private MovementAction move(Coordinate target) {
         if (isAlive() && currentMovementDelay == 0) {
             return new MovementAction(this, target);
         }

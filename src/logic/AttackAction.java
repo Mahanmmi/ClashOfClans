@@ -7,6 +7,10 @@ class AttackAction implements Action {
     private final AbstractUnit target;
     private final Coordinate coordinate;
 
+    public AbstractUnit getUnit() {
+        return unit;
+    }
+
     AttackAction(AbstractUnit unit, AbstractUnit target, Coordinate coordinate) {
         this.unit = unit;
         this.target = target;

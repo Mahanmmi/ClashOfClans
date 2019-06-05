@@ -21,7 +21,12 @@ public class Main {
                 }
             }
         }
-
+        turnActions.sort((Action a, Action b) -> {
+            if(a instanceof AttackAction && b instanceof AttackAction){
+                return Integer.compare(((AttackAction) b).getUnit().getId(),((AttackAction) a).getUnit().getId());
+            }
+            return 0;
+        });
         for (Action action : turnActions) {
             if (action != null) {
                 action.doAction();

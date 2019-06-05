@@ -19,7 +19,7 @@ abstract class AbstractWeapon {
         for (Coordinate actionableCell : actionableCells) {
             int x = actionableCell.getX();
             int y = actionableCell.getY();
-            if (chart[x][y].getUnit() != null && chart[x][y].getUnit().isBlue() != isBlue) {
+            if (chart[x][y].getUnit() != null && chart[x][y].getUnit() instanceof AbstractSoldier && chart[x][y].getUnit().isBlue() != isBlue) {
                 targets.add(actionableCell);
             }
         }

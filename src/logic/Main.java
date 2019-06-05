@@ -1,5 +1,7 @@
 package logic;
 
+import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -67,32 +69,38 @@ public class Main {
         }
     }
 
-    private static void initChartUnits(int count, boolean isBlue) {
+    private static void initChartUnits(int count, boolean isBlue, ArrayList<AbstractUnit> units) {
         for (int i = 0; i < count; i++) {
             String[] unitData = scanner.next().split(",");
             int id = Integer.parseInt(unitData[0]);
             String type = unitData[1];
             Coordinate coordinate = new Coordinate(Integer.parseInt(unitData[2]), Integer.parseInt(unitData[3]));
+            AbstractUnit unit = null;
             switch (type) {
                 case "Tower": {
-                    chart[coordinate.getX()][coordinate.getY()].setUnit(new Tower(coordinate, id, isBlue));
+                    unit = new Tower(coordinate, id, isBlue);
                     break;
                 }
                 case "SwordMan": {
-                    chart[coordinate.getX()][coordinate.getY()].setUnit(new SwordMan(coordinate, id, isBlue));
+                    unit = new SwordMan(coordinate, id, isBlue);
                     break;
                 }
                 case "SpearMan": {
-                    chart[coordinate.getX()][coordinate.getY()].setUnit(new SpearMan(coordinate, id, isBlue));
+                    unit = new SpearMan(coordinate, id, isBlue);
                     break;
                 }
             }
+            units.add(unit);
+            chart[coordinate.getX()][coordinate.getY()].setUnit(unit);
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+        PrintStream printStream = new PrintStream("./testcase/out.txt");
+        System.setOut(printStream);
         int n = scanner.nextInt();
         chart = new ChartCell[n][n];
+        ArrayList<AbstractUnit> units = new ArrayList<>();
         for (int i = 0; i < chart.length; i++) {
             for (int j = 0; j < chart[i].length; j++) {
                 chart[i][j] = new ChartCell(new Coordinate(i, j));
@@ -100,14 +108,14 @@ public class Main {
         }
         int blueCount = scanner.nextInt();
         int redCount = scanner.nextInt();
-        initChartUnits(blueCount, true);
-        initChartUnits(redCount, false);
+        initChartUnits(blueCount, true, units);
+        initChartUnits(redCount, false, units);
 
-        printChart();
-
+//        printChart();
 
         scanner.nextLine();
 
+        int lvl = 1;
         while (true) {
             String in = scanner.nextLine();
             if (in.startsWith("tick ")) {
@@ -115,7 +123,12 @@ public class Main {
                 for (int i = 0; i < t; i++) {
                     tick();
                 }
-                printChart();
+//                System.out.println(lvl);
+//                printChart();
+                lvl++;
+                for (AbstractUnit unit : units) {
+                    System.out.println(unit);
+                }
             } else if (in.equalsIgnoreCase("terminate")) {
                 break;
             }

@@ -18,6 +18,10 @@ abstract class AbstractSoldier extends AbstractUnit {
 
         this.movementDelay = movementDelay + armor.getWeight();
         this.attackDelay += weapon.getRefreshTime();
+//        System.out.println(getType() + "," + movementDelay);
+//        System.out.println(getType() + "," + attackDelay);
+        setCurrentAttackDelay(this.attackDelay);
+        setCurrentMovementDelay(this.movementDelay);
     }
 
     private MovementAction move(Coordinate target) {
@@ -33,7 +37,7 @@ abstract class AbstractSoldier extends AbstractUnit {
             if (targetCoordinates.size() != 0) {
                 Coordinate targetCoordinate = targetCoordinates.get(0);
                 if (targetCoordinate != null) {
-                    AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
+                    AbstractUnit target = chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
                     if (this instanceof SwordMan) {
                         return new AttackAction(this, target, target.getCoordinate());
                     } else if (this instanceof SpearMan) {
@@ -71,7 +75,7 @@ abstract class AbstractSoldier extends AbstractUnit {
                 return arr;
             }
 //            System.out.println("Excuse me WTF2");
-            for (int i = -1; i <= 1; i += 2) {
+            for (int i = 1; i >= -1; i -= 2) {
                 if ((y + i < 0) || (y + i) >= chart[x].length || chart[x + direction][y + i].getUnit() != null) {
                     continue;
                 }

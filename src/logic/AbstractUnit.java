@@ -21,6 +21,7 @@ abstract class AbstractUnit {
         this.id = id;
         this.isBlue = isBlue;
         this.attackDelay = attackDelay;
+        currentAttackDelay = this.attackDelay;
         this.armor = armor;
         this.weapon = weapon;
     }
@@ -61,10 +62,11 @@ abstract class AbstractUnit {
 
     @Override
     public String toString() {
-        return "Id: " + getId() +
-                ", Type: " + getType() +
-                ", isBlue: " + isBlue() +
-                ", HP: " + hitpoint +
-                ", Coordinate: " + coordinate;
+//        return "Id: " + getId() +
+//                ", Type: " + getType() +
+//                ", isBlue: " + isBlue() +
+//                ", HP: " + hitpoint +
+//                ", Coordinate: " + coordinate;
+        return getId() + "," + getType() + "," + hitpoint + "," + getCoordinate().getX() + "," + getCoordinate().getY();
     }
 }

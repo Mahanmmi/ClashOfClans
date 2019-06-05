@@ -6,22 +6,22 @@ import static logic.Main.chart;
 
 class Tower extends AbstractUnit {
     Tower(Coordinate coordinate, int id, boolean isBlue) {
-        super("Tower", 10000, coordinate, id, isBlue, 10, new StoneArmor(), new Sling());
+        super("Tower", 1000, coordinate, id, isBlue, 10, new StoneArmor(), new Sling());
     }
 
     private ArrayList<Action> attack(ChartCell[][] chart) {
         ArrayList<Action> attackActions = new ArrayList<>();
-        if (currentAttackDelay == 0) {
+        if (getCurrentAttackDelay() == 0) {
             ArrayList<Coordinate> targetsCoordinates = weapon.canHit(chart, isBlue(), coordinate, 0);
             for (Coordinate targetCoordinate : targetsCoordinates) {
                 AbstractSoldier target = (AbstractSoldier) chart[targetCoordinate.getX()][targetCoordinate.getY()].getUnit();
                 if (target != null) {
-                    System.out.print(this + " Now can attack: ");
-                    System.out.println(target);
+//                    System.out.print(this + " Now can attack: ");
+//                    System.out.println(target);
                     attackActions.add(new AttackAction(this, target, this.getCoordinate()));
+                    setCurrentAttackDelay(getAttackDelay());
                 }
             }
-            currentAttackDelay = getAttackDelay();
         }
         return attackActions;
     }
